@@ -29,18 +29,23 @@ begin
 	if (count==3'b111)
 	begin
 		count<=3'b000;
-		send<=1;
+		data<=cachedata;
+		//send<=1;
 	end
 	if (count==3'b001)
+	begin
+		send<=1;
+	end
+	if (count==3'b010)
 	begin
 		send<=0;
 	end
 end
 
-always@ (posedge send)
+/*always@ (posedge send)
 begin
 	data<=cachedata;
-end
+end*/
 
 HammingEncoder HammingEncoder(data,code);
 
