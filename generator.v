@@ -13,6 +13,14 @@ reg [6:0] data;
 
 generate_m generate_m(clk,reset,mdata);
 
+
+initial begin 
+	cachedata<=7'b0;
+	count<=3'b0;
+	send<=0;
+	data<=7'b0;
+end
+
 always@(posedge clk or negedge reset)
 begin
 	if(reset == 0)
@@ -20,6 +28,7 @@ begin
 	cachedata<=7'b0;
 	count<=3'b0;
 	send<=0;
+	data<=7'b0;
 	end
 	else
 	begin

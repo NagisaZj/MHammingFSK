@@ -1,7 +1,7 @@
 module FSKEncoder(codein,sending,clk,reset,FSKout);
 	input  codein;
 	input clk,sending,reset;
-	output FSKout;
+	output reg FSKout;
 	
 	
 	reg carry1,carry2;
@@ -20,8 +20,16 @@ module FSKEncoder(codein,sending,clk,reset,FSKout);
 		count<=3'd0;
 	end
 	
-	assign FSKout = (sending == 0) ?0:
-					 (codein == 1) ? carry1:carry2;
+	/*assign FSKout = (sending == 0) ?0:
+					 (codein == 1) ? carry1:carry2;*/
+					 
+	always @(posedge clk) begin
+		if (sending ==0) FSKout<=0;
+		else begin
+			if (codein==1) FSKout<=carry1;
+			else FSKout<=carry2;
+		end
+	end
 	
 	always @(posedge clk or negedge reset) begin
 		if (reset==0)
